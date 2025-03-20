@@ -1,0 +1,31 @@
+mar. 19, 2025 9:04:54 PM liquibase.changelog
+INFO: Reading from railway.DATABASECHANGELOG
+Database is up to date, no changesets to execute
+mar. 19, 2025 9:04:56 PM liquibase.changelog
+INFO: Reading from railway.DATABASECHANGELOG
+
+UPDATE SUMMARY
+Run:                          0
+Previously run:               2
+Filtered out:                 0
+-------------------------------
+Total change sets:            2
+
+mar. 19, 2025 9:04:56 PM liquibase.util
+INFO: UPDATE SUMMARY
+mar. 19, 2025 9:04:56 PM liquibase.util
+INFO: Run:                          0
+mar. 19, 2025 9:04:56 PM liquibase.util
+INFO: Previously run:               2
+mar. 19, 2025 9:04:56 PM liquibase.util
+INFO: Filtered out:                 0
+mar. 19, 2025 9:04:56 PM liquibase.util
+INFO: -------------------------------
+mar. 19, 2025 9:04:56 PM liquibase.util
+INFO: Total change sets:            2
+mar. 19, 2025 9:04:56 PM liquibase.util
+INFO: Update summary generated
+mar. 19, 2025 9:04:57 PM liquibase.lockservice
+INFO: Successfully released change log lock
+mar. 19, 2025 9:04:57 PM liquibase.command
+INFO: Command execution complete

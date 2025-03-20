@@ -1,0 +1,167 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: project-board
+      changes:
+        - createTable:
+            tableName: BOARDS
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: BOARDS_COLUMNS
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "order"
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: kind
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: board_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_boards_columns_board
+                    references: BOARDS(id)
+                    deleteCascade: true
+
+        - createTable:
+            tableName: CARDS
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: board_column_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_cards_board_column
+                    references: BOARDS_COLUMNS(id)
+                    deleteCascade: true
+
+        - createTable:
+            tableName: BLOCKS
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: card_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_blocks_card
+                    references: CARDS(id)
+                    deleteCascade: true
+              - column:
+                  name: blocked_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: block_reason
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: unblocked_at
+                  type: TIMESTAMP
+              - column:
+                  name: unblock_reason
+                  type: TEXT
+
+  - changeSet:
+      id: 2
+      author: project-board
+      changes:
+        - createTable:
+            tableName: CARD_HISTORY
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: card_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_card_history_card
+                    references: CARDS(id)
+                    deleteCascade: true
+              - column:
+                  name: from_column_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_card_history_from_column
+                    references: BOARDS_COLUMNS(id)
+                    deleteCascade: true
+              - column:
+                  name: to_column_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_card_history_to_column
+                    references: BOARDS_COLUMNS(id)
+                    deleteCascade: true
+              - column:
+                  name: moved_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
